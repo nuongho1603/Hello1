@@ -1,0 +1,110 @@
+<body style="background-color: #ECECEC; height: 140vh; margin-top: 50px">
+<div style="position: relative">
+  <div class="justify-content-center">
+    <div>
+      <div>
+        <h1 style="size:32px; margin-bottom: 2rem; padding-top: 1rem; text-align: center">DANH SÁCH HỌC SINH
+          LỚP {{clazz}}</h1>
+      </div>
+      <div>
+        <div class="col-2"></div>
+        <div class="col-8 container-fluid">
+          <button class="btn btn-warning" style="margin-bottom: 1rem; text-align: right"
+                  routerLink="/timetable/timetable-teacher"> Quay lại trang chủ
+          </button>
+          <table class="table table-bordered table-hover" style="text-align: center">
+            <thead class="table-primary">
+            <tr>
+              <th scope="col" style="width: 8rem">STT</th>
+              <th scope="col" style="width: 18rem">Họ và tên</th>
+              <th scope="col">Giới tính</th>
+              <th scope="col">Ngày sinh</th>
+              <th scope="col">Chi tiết</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of studentInfo; let i = index">
+              <td>{{(i + 1) + (request.page * request.size)}}</td>
+              <td style="text-align: left"><span style="margin-left: 2rem">{{item.studentName}}</span></td>
+              <td>{{item.gender ? 'Nam' : 'Nữ'}}</td>
+              <td>{{item.dateOfBirth | date: 'dd/MM/yyyy'}}</td>
+              <td>
+                <button class="btn btn-outline-primary" style="text-align: center; size: 25px"
+                        [routerLink]="['/student/detail',item.studentId]">
+                  <i class="fa-solid fa-circle-info"></i>
+                </button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <div class="col-2"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="position: absolute; top: 750px; left: 58%">
+    <div *ngIf="studentInfo.length != 0; else elseBlockPagination" style="float: right">
+      <div *ngIf="studentList" class="d-flex justify-content-center" id="last-row">
+        <div>
+          <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              <li class="page-item" [ngClass]="studentList.first ? 'disabled': ''">
+                <a role="button" class="page-link" (click)="changePage(0)">Trang đầu</a>
+              </li>
+              <li class="page-item" [ngClass]="studentList.first ? 'disabled': ''">
+                <a role="button" class="page-link" (click)="changePage(studentList.number - 1)"><</a>
+              </li>
+              <li class="page-item" *ngIf="studentList.number - 3 > 0">
+                <a role="button" class="page-link"
+                   (click)="changePage(studentList.number - 4)">{{studentList.number - 3}}</a>
+              </li>
+              <li class="page-item" *ngIf="studentList.number - 2 > 0">
+                <a role="button" class="page-link"
+                   (click)="changePage(studentList.number - 3)">{{studentList.number - 2}}</a>
+              </li>
+              <li class="page-item" *ngIf="studentList.number - 1 > 0">
+                <a role="button" class="page-link"
+                   (click)="changePage(studentList.number - 2)">{{studentList.number - 1}}</a>
+              </li>
+              <li class="page-item" *ngIf="studentList.number > 0">
+                <a role="button" class="page-link"
+                   (click)="changePage(studentList.number - 1)">{{studentList.number}}</a>
+              </li>
+              <li class="page-item active"><a class="page-link">{{studentList.number + 1}}</a></li>
+              <li class="page-item" *ngIf="studentList.number + 2 <= studentList.totalPages">
+                <a role="button" class="page-link"
+                   (click)="changePage(studentList.number + 1)">{{studentList.number + 2}}</a>
+              </li>
+              <li class="page-item" *ngIf="studentList.number + 3 <= studentList.totalPages">
+                <a role="button" class="page-link"
+                   (click)="changePage(studentList.number + 2)">{{studentList.number + 3}}</a>
+              </li>
+              <li class="page-item" *ngIf="studentList.number + 4 <= studentList.totalPages">
+                <a role="button" class="page-link"
+                   (click)="changePage(studentList.number + 3)">{{studentList.number + 4}}</a>
+              </li>
+              <li class="page-item" *ngIf="studentList.number + 5 <= studentList.totalPages">
+                <a role="button" class="page-link"
+                   (click)="changePage(studentList.number + 4)">{{studentList.number + 5}}</a>
+              </li>
+              <li class="page-item" [ngClass]="studentList.last ? 'disabled': ''">
+                <a role="button" class="page-link"
+                   (click)="changePage(studentList.number + 1)">></a>
+              </li>
+              <li class="page-item" [ngClass]="studentList.last ? 'disabled': ''">
+                <a role="button" class="page-link"
+                   (click)="changePage(studentList.totalPages - 1)">
+                  Trang cuối
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+    <ng-template #elseBlockPagination></ng-template>
+  </div>
+
+</div>
+</body>

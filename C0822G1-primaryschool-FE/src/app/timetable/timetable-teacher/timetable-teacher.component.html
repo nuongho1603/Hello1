@@ -1,0 +1,41 @@
+
+<body style="background-color: #ECECEC; height: 90vh; margin-top: 50px">
+<div class="justify-content-center m-0 mb-2">
+  <div>
+    <div>
+      <h1 style="size:32px; padding-top: 6rem; margin-bottom: 30px; text-align: center">LỊCH DẠY</h1>
+    </div>
+    <div>
+      <div class="col-2"></div>
+      <div class="col-8 container-fluid ">
+        <div style="text-align: right; margin-bottom: 0.5em">
+          <b>(Áp dụng từ 08/03/2023)</b>
+        </div>
+        <table style="box-shadow: 0 0 20px 0 #253365;" class="table table-bordered table-hover">
+          <thead class="table-primary">
+          <tr>
+            <th scope="col" style="text-align: center">Tiết</th>
+            <th scope="col">Thứ hai</th>
+            <th scope="col">Thứ ba</th>
+            <th scope="col">Thứ tư</th>
+            <th scope="col">Thứ năm</th>
+            <th scope="col">Thứ sáu</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let timetable of time,let i=index">
+            <td class="table-primary text-center"> {{i + 1}}</td>
+            <td *ngFor="let monhoc of timetable,let j=index">
+              <div>
+                <span>{{monhoc.nameSubject}}</span>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-2"></div>
+    </div>
+  </div>
+</div>
+</body>

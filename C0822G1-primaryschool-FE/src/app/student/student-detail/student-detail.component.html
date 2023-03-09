@@ -1,0 +1,78 @@
+<div class="container">
+  <div class="container">
+    <div class="card">
+      <div class="header">
+        <h2>Thông tin học sinh</h2>
+      </div>
+      <div class="body" *ngIf="student">
+        <div class="left">
+          <div class="image">
+            <img src="{{student.img}}" width="100px" height="280px">
+          </div>
+          <div class="info">
+            <div class="name">{{student.studentName}}</div>
+            <!--                        <div class="class">Lớp {{student.clazz.clazzName}}</div>-->
+          </div>
+        </div>
+        <div class="right">
+          <div class="row">
+            <div class="label">Giới tính:</div>
+            <div class="value" *ngIf="student.gender == true">Nam</div>
+            <div class="value" *ngIf="student.gender == false">Nữ</div>
+          </div>
+          <div class="row">
+            <div class="label">Ngày sinh:</div>
+            <div class="value">{{student.dateOfBirth | date: 'dd/MM/yyyy'}}</div>
+          </div>
+          <div class="row">
+            <div class="label">Địa chỉ:</div>
+            <div class="value"> {{student.address}}</div>
+          </div>
+          <div class="row">
+            <div class="label">Tôn giáo:</div>
+            <div class="value">{{student.religion}}</div>
+          </div>
+          <div class="row">
+            <div class="label">Tên cha:</div>
+            <div class="value">{{student.fatherName}}</div>
+          </div>
+          <div class="row">
+            <div class="label">SĐT cha:</div>
+            <div class="value">{{student.phoneNumberFather}}</div>
+          </div>
+          <div class="row">
+            <div class="label; col-5"><b> Nghề nghiệp: </b></div>
+            <div class="value">{{student.fatherJob}}</div>
+          </div>
+          <div class="row">
+            <div class="label">Tên mẹ:</div>
+            <div class="value">{{student.motherName}}</div>
+          </div>
+          <div class="row">
+            <div class="label">SĐT mẹ:</div>
+            <div class="value">{{student.phoneNumberMother}}</div>
+          </div>
+          <div class="row">
+            <div class="label; col-5"><b> Nghề nghiệp: </b></div>
+            <div class="value">{{student.motherJob}}</div>
+          </div>
+          <div>
+            <!-- HTML !-->
+            <div *ngIf="this.year">
+              <button [routerLink]="['/student',this.year,this.clazzId,this.page]" type="button"
+                      style="margin-top: 8px; height: 37px" class="btn btn-warning">
+                <p>Quay lại</p>
+              </button>
+            </div>
+            <div *ngIf="!this.year">
+              <button [routerLink]="['/student/homeroom']" type="button" style=" margin-top: 8px; height: 37px"
+                      class="btn btn-warning">
+                <p>Quay lại</p>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

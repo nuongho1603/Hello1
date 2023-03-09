@@ -1,0 +1,164 @@
+<div class="myBody">
+  <section class="myCourser">
+    <div class="transport"></div>
+    <h1 class="title zoom">Lời Mở Đầu</h1>
+    <p class="zoom">Trước tiên, xin cám ơn quý vị phụ huynh và các em học sinh đã luôn tin tưởng <br> và đồng hành
+      cùng chúng tôi
+      trong suốt thời gian qua !</p>
+    <div class="row">
+      <div class="courser-col zoom">
+        <i class="fa-sharp fa-solid fa-ranking-star" style="font-size: 30px; color: orangered"></i>
+        <h3>Chất lượng đào tạo</h3>
+        <p> Một trong những trường hàng đầu về chất lượng.<br>
+          Trẻ không chỉ được học những kiến thức cơ bản, <br>
+          mà còn được rèn luyện với những bài code thiếu nhi.</p>
+      </div>
+
+      <div class="courser-col zoom">
+        <i class="fa-solid fa-layer-group" style="font-size: 30px; color: orangered"></i>
+        <h3>Có tỉ lệ học sinh đạt giỏi trên 80%.</h3>
+        <p> Chúng tôi tập trung vào đào tạo lấy chất lượng đặt lên hàng đầu.<br>
+          Vì thế số lượng học sinh đạt giỏi luôn ở mức trên 80%, <br>
+        </p>
+      </div>
+
+      <div class="courser-col zoom">
+        <i class="fa-solid fa-chalkboard-user" style="font-size: 30px; color: orangered"></i>
+        <h3>Đội ngũ giáo viên</h3>
+        <p> Có đội ngũ giáo viên giàu kinh nghiệm, cống hiến và yêu trẻ.<br>
+          Học sinh và giáo viên đến từ nhiều quốc gia. <br>
+          Là một trong ít trường được kiểm định kép bởi CIS và NEASC</p>
+      </div>
+    </div>
+
+
+    <div class="bigTitle">
+      <h1 class="title zoom">Đội Ngũ Giáo Viên</h1>
+      <p class="zoom">Đội ngũ giáo viên vô cùng năng động và yêu trẻ</p>
+    </div>
+    <div class="checkin">
+
+      <div class="item">
+        <img src="https://www.paratime.vn/wp-content/uploads/2019/09/timestudio.vn-headshot-eye-glasses-02.jpg" class="zoom">
+      </div>
+
+      <div class="item">
+        <img src="https://bizweb.dktcdn.net/100/175/849/files/chup-anh-the-ha-noi-3.jpg?v=1521431915155"
+             class="zoom">
+
+      </div>
+
+      <div class="item">
+        <img src="https://bizweb.dktcdn.net/100/175/849/files/chup-anh-phong-cach-cho-nam-gioi-trong-studio-nghe-thuat-o-ha-noi-05.jpg?v=1595935877477" class="zoom">
+
+      </div>
+
+      <div class="item">
+        <img src="https://img.websosanh.vn/v2/users/review/images/4wvuq0i4ozs1q.jpg?compress=85g" class="zoom">
+
+      </div>
+
+      <div class="item">
+        <img src="https://static2.yan.vn/YanNews/2167221/202109/dung-ct-la-ai-thong-tin-tieu-su-streamer-noi-tieng-1ab6dd82.jpeg"
+             class="zoom">
+
+      </div>
+
+      <div class="item">
+        <img src="https://lavenderstudio.vn/wp-content/uploads/dich-vu-chup-anh-profile-02-1-1.jpg" class="zoom">
+
+      </div>
+    </div>
+
+
+    <div class="work">
+      <h1 class="title zoom">Tin Nổi Bật Vừa Qua</h1>
+      <p class="zoom">Không chỉ học tập, nhà trường còn tổ chức những buổi ngoại khóa
+        giao lưu với giáo viên nước ngoài để tăng sự phát triển toàn diện
+        của trẻ</p>
+    </div>
+
+  </section>
+
+  <section class="parents">
+    <div class="row">
+      <div class="work-col" *ngFor="let item of pageBlog">
+        <a style="cursor: pointer; text-decoration: none; color: #15536c" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="blog=item">
+          <img class="zoom" title="img" [src]="item.img">
+          <h5 style="text-align: center; margin-top: 30px" class="zoom">{{item.title}}</h5>
+          <div style="text-align: center; font-size: 10px">
+            <p>{{item.contents | slice: 0: 20}}... <span style="font-size: small; color: #f44336"><b>xem thêm</b></span></p>
+            <h6 class="zoom"><i class="fa-solid fa-calendar-days"> </i>: {{item.start_date | date: 'MM-dd-yyyy'}}</h6>
+            <h6 class="zoom"><i class="fa-solid fa-pen-to-square"></i>: {{item.poster}}</h6>
+          </div>
+        </a>
+      </div>
+      <a style="cursor: pointer; color: #f44336; text-decoration: none" type="button" (click)="getAllBlog(size+3)" *ngIf="!last">
+        <i class="fas fa-angle-double-down"></i><br>
+        Xem thêm...
+      </a>
+      <a style="cursor: pointer; color: #f44336; text-decoration: none" type="button" (click)="getAllBlog(size=3)" *ngIf="last">
+        <i class="fas fa-angle-double-up" (click)="scrollToBlog()"></i><br>
+        Ẩn bớt
+      </a>
+    </div>
+  </section>
+
+  <section class="parents" style="margin-top: 50px">
+
+    <h1 class="title zoom">Phụ Huynh Nói Gì ?</h1>
+    <p class="zoom">Cùng lắng nghe ý kiến của phụ huynh khi cho con em của mình học tại trường</p>
+    <div class="row">
+      <div class="parents-col zoom">
+        <img src="https://tse1.mm.bing.net/th?id=OIP.wFtgiiAzJmbrLH_JlZCqSgHaJ4&pid=Api&P=0">
+        <div>
+          <h3>Anh: Lê Trọng Nhân - Kỹ sư xây dựng</h3>
+          <p>Theo giới thiệu của bạn bè, tôi đã cho con theo học tại C zero eight. Tôi thấy rằng
+            trường học rất tốt, không những dạy những kiến thức cơ bản của Bộ Giáo Dục, mà còn định hướng
+            tương lai cho bọn trẻ
+          </p>
+        </div>
+      </div>
+
+      <div class="parents-col zoom">
+        <img src="https://tse1.mm.bing.net/th?id=OIP.zQqgayVMPxyiPzG5Iw1ykAHaLI&pid=Api&P=0">
+        <div>
+          <h3>Chị: Võ Thị Bích Mỹ - Giáo viên cấp 3</h3>
+          <p>Bản thân là giáo viên tôi cũng nhận ra rằng C zero eight là nơi tào tạo cực kỳ chất lượng.
+            Con của tôi sau khi học ở đây cũng trưởng thành nhiều lên, đây thực sự là một nơi đào tạo
+            có thể xây dựng được nền móng vững chắc cho con của tôi sau này.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+
+<!--*Modal detail-->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
+  <div class="modal-dialog modal-lg" style="margin: auto">
+    <div class="modal-content" style="background-color: #ECECEC">
+      <div class="modal-header">
+        <h3 class="modal-title" id="staticBackdropLabel" style="margin-left: 40px">{{blog.title}}</h3>
+      </div>
+      <div class="modal-body">
+        <img title="img" [src]="blog.img" style="width: 90%; margin-left: 40px; height: 300px; border-radius: 15px">
+        <p style="margin-left: 40px; margin-right: 40px">{{blog.contents}}</p>
+        <div class="row">
+          <div class="col-6">
+            <i class="fa-solid fa-calendar-days" style="margin-left: 40px"> </i>: <p style="font-size: small; display: inline-block">{{blog.start_date | date: 'MM-dd-yyyy'}}</p>
+
+          </div>
+          <div class="col-6">
+            <i class="fa-solid fa-pen-to-square"></i>: <p style="font-size: small; display: inline-block">{{blog.poster}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" style=" width: 70px; height: 40px; margin-top: 10px; margin-bottom:10px;  margin-right:45%">Đóng</button>
+      </div>
+    </div>
+  </div>
+</div>

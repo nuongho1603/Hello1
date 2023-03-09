@@ -1,0 +1,77 @@
+
+<section class="ftco-section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6 text-center mb-5">
+        <h2 class="heading-section text"></h2>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-md-12 col-lg-10">
+        <div class="wrap d-md-flex" style="background: #f8d7da">
+          <div class="img" style="background-image: url(/assets/img/anhmoi.png); background-size: cover">
+          </div>
+          <div class="login-wrap p-4 p-md-5">
+            <div class="d-flex">
+              <div class="w-100">
+                <h3 class="mb-4">Đăng nhập</h3>
+              </div>
+
+            </div>
+            <form [formGroup]="formGroup" class=" signin-form" (ngSubmit)="login()">
+              <div class="form-group" style="margin-bottom: 55px">
+                <label class="label" for="name">Tài khoản: </label>
+                <input type="text" formControlName="username" class="form-control" id="name" placeholder="Tài khoản"
+                       required>
+                <div style="position: absolute">
+                  <p class="text-danger">{{errors.username}}</p>
+                  <p class="text-danger"
+                     *ngIf="formGroup.controls.username.hasError('required')&&formGroup.controls.username.touched">Yêu
+                    cầu phải nhập tài khoản</p>
+                  <p class="text-danger"
+                     *ngIf="formGroup.controls.username.hasError('minlength')&&formGroup. controls.username.dirty">Tài
+                    khoản phải lớn hơn 3 ký tự</p>
+                </div>
+              </div>
+              <div class="form-group " style="margin-bottom: 55px">
+                <label class="label" for="password-input">Mật khẩu: </label>
+                <input type="password" formControlName="password" class="form-control" id="password-input"
+                       placeholder="Mật khẩu"
+                       required>
+                <div style="position: absolute">
+                  <p class="text-danger">{{errors.password}}</p>
+                  <p class="text-danger"
+                     *ngIf="formGroup.controls.password.hasError('required')&&formGroup.controls.username.touched">Yêu
+                    cầu phải nhập mật khẩu</p>
+                  <p class="text-danger"
+                     *ngIf="formGroup.controls.password.hasError('minlength')&&formGroup. controls.username.dirty">Mật
+                    khẩu phải lớn hơn 3 ký tự</p>
+                </div>
+              </div>
+              <div class="form-group">
+                <button type="submit" class="form-control btn btn-primary rounded submit px-3">Đăng
+                  nhập
+                </button>
+              </div>
+              <div class="form-group d-md-flex">
+                <div class="w-50 text-left">
+                  <label class="checkbox-wrap checkbox-primary mb-0">Ghi nhớ đăng nhập
+                    <input type="checkbox" formControlName="rememberMe">
+                    <span class="checkmark"></span>
+                  </label>
+                </div>
+                <div class="w-50 text-md-right">
+                  <a href="#">Quên mật khẩu</a>
+                </div>
+              </div>
+            </form>
+            <p class="text-center">Bạn chưa có tài khoản? <a data-toggle="tab" routerLink="/security/sign-up">Đăng
+              ký</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

@@ -1,0 +1,73 @@
+<body>
+<section class="header">
+  <nav>
+    <div class="logo">
+
+      <img class="animationTop delay-01" src="../../../assets/img/logoprimaryschool.png" style="width: 200px; height: 100px; background-size: cover"/>
+    </div>
+    <div class="nav-links">
+      <ul>
+        <li style="margin-right: 100px">
+        </li>
+        <li class="animationTop delay-03"><a routerLink="/">TRANG CHỦ</a></li>
+        <li class="animationTop delay-05"><a routerLink="/student" (click)="scrollToTopLogin()">HỌC SINH</a></li>
+        <li>
+          <div class="btn-group dropdown animationTop delay-12">
+            <a class=" dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              TÌM KIẾM
+            </a>
+            <ul class="dropdown-menu" style="background: #e4606d; cursor: pointer">
+              <li><a class="dropdown animationTop delay-01" routerLink="/student/search" (click)="scrollToTopLogin()">HỌC SINH</a></li>
+              <li><a class="dropdown animationTop delay-02" routerLink="/teacher" (click)="scrollToTopLogin()">GIÁO VIÊN</a></li>
+            </ul>
+          </div>
+        </li>
+        <li class="animationTop delay-07"><a routerLink="/point" (click)="scrollToTopLogin()">QUẢN LÝ ĐIỂM</a></li>
+
+        <li class="animationTop delay-07"><a routerLink="/class" (click)="scrollToTopLogin()">LỚP HỌC</a></li>
+        <li class="animationTop delay-07" *ngIf="isLoggedIn"><a routerLink="/student/homeroom" (click)="scrollToTopLogin()">LỚP CHỦ NHIỆM</a></li>
+        <li class="animationTop delay-09"><a routerLink="/timetable" (click)="scrollToTopLogin()">THỜI KHÓA BIỂU</a></li>
+
+        <li class="animationTop delay-09" *ngIf="isLoggedIn"><a routerLink="/timetable/timetable-teacher" (click)="scrollToTopLogin()">LỊCH DẠY</a></li>
+
+        <li class="animationTop delay-1" *ngIf="isLoggedIn">
+          <div>
+            <div class="dropdown animationTop delay-11">
+              <a class="m-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="{{user?.avatar}}" class="rounded-circle" style="width: 40px; background-image: none; height: 40px" height="24" width="24"
+                     alt="avc"/>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end" style="background-color: #e4606d; cursor: pointer; width: 180px">
+                <li class="animationTop delay-01" style="color: white">
+                  <i class="fa-solid fa-user me-3" ></i><strong style="color: green">{{user?.username}}</strong>
+                </li>
+                <li class="animationTop delay-02" ><a  class="dropdown" routerLink="/teacher/editInfoTeacher" (click)="scrollToTopLogin()"> <i class="fa-solid fa-gear me-1"></i>
+                  Sửa thông tin cá nhân</a></li>
+                <li class="animationTop delay-03"><a class="dropdown" routerLink="/security/changePassword" (click)="scrollToTopLogin()"><i class="fa-sharp fa-solid fa-key me-1" ></i> Sửa mật khẩu</a></li><br>
+
+                <li class="animationTop delay-04"><a class="dropdown" data-bs-toggle="modal" data-bs-target="#logout" (click)="logout()"
+                                                     type="button"><i class="fa-sharp fa-solid fa-right-to-bracket me-1" ></i> Đăng xuất </a></li>
+              </ul>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+  </nav>
+  <div class="text-box">
+
+    <h1 class="animationTop delay-12" style="padding: 0">Trường Tiểu Học C Zero Eight</h1>
+    <p class="animationTop delay-15">Là nơi có đội ngũ giáo viên được đào tạo chuyên nghiệp, có trách nhiệm và kinh
+      nghiệm qua nhiều năm giảng
+      dạy</p>
+    <a routerLink="/security/login" *ngIf="!isLoggedIn" (click)="scrollToTopLogin()" class="hero-btn animationTop delay-17">Đăng Nhập</a>
+  </div>
+  <div class="scroll-to-top" *ngIf="pageYoffSet > 0">
+    <a class="btn" (click)="scrollToTop()" style="background-color: rgba(255,255,255,0.44)">
+      <i class="fas fa-angle-double-up" style="width: 30px; height: 50px; color: red; padding-top: 15px"></i>
+    </a>
+  </div>
+</section>
+</body>
+

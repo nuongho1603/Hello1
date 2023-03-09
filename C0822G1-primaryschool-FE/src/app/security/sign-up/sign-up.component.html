@@ -1,0 +1,61 @@
+<div class="container" >
+  <div class="row">
+    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+      <div class="card card-signin my-5" style="background: #f8d7da">
+        <div class="card-body">
+          <h5 class="card-title text-center">Đăng Ký</h5>
+          <form class="form-signin" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+            <div class="form-label-group">
+              <label for="name">Tên: </label>
+              <input autofocus id="name" formControlName="name" type="text" class="form-control">
+              <div class="error-place">
+
+              </div>
+            </div>
+            <div class="form-label-group">
+              <label for="username">Tài khoản: </label>
+                <input autofocus id="username" formControlName="username" type="text" class="form-control">
+              <div class="error-place">
+
+              </div>
+            </div>
+            <div class="form-label-group">
+              <label for="pass">Mật khẩu: </label>
+              <input id=pass formControlName="password" type="password" class="form-control"
+                      required>
+              <div class="error-place">
+                <small class="text-danger"
+                       *ngIf="formGroup.controls.password.hasError('required')">Yêu cầu phải nhập mới đăng nhập được
+                </small>
+              </div>
+            </div>
+
+            <div class="form-label-group">
+              <label for="email">Email: </label>
+              <input id="email" formControlName="email" type="email" class="form-control"
+                     required>
+              <div class="error-place">
+
+              </div>
+            </div>
+            <p><a href="" routerLink="/security/login" style="text-decoration-line: none" data-dismiss="modal">Đăng nhập</a></p>
+
+            <div *ngIf="isSubmited then submited else notSubmited"></div>
+            <ng-template #notSubmited>
+              <button class="btn btn-lg text-uppercase" style="background: #e3b04b" type="submit">Đăng ký</button>
+              <button class="btn btn-lg btn-secondary text-uppercase" type="button" routerLink="">Huỷ</button>
+            </ng-template>
+            <ng-template #submited>
+              <button class="btn btn-lg btn-primary text-uppercase" type="button" disabled>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Loading...
+              </button>
+            </ng-template>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

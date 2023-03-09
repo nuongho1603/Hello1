@@ -1,0 +1,174 @@
+
+
+<div class="mx-6 px-6 pt-3" >
+  <div class="d-flex justify-content-center" >
+
+    <form class="w-50 border border-2 border-success p-3 rounded col-xs-10 col-sm-9 col-md-7 col-lg-5 mx-auto" style="background-color: #cfe2ff"
+          [formGroup]="studentForm" (ngSubmit)="createStudent()">
+      <h2 class="text-center fw-bold">Thêm Mới Học Sinh</h2>
+      <div class="form-group">
+        <label for="img" class="h6" >Ảnh đại diện:</label>
+        <input (change)="showPreview($event)" type="file" id="img" class="form-control" placeholder="Tải ảnh lên" >
+      </div>
+
+      <div class="mt-3 form-group">
+        <label for="name-student" class="h6" >Tên học sinh:</label>
+        <div class="input-group">
+          <input type="text" id="name-student" class="form-control" placeholder="Nhập tên học sinh" formControlName="studentName">
+        </div>
+        <p style="color: red"
+           *ngIf="studentForm.controls.studentName.hasError('required') && studentForm.controls.studentName.touched">*
+          Không được để trống</p>
+        <p style="color: red"
+           *ngIf="studentForm.controls.studentName.hasError('pattern')">* Chưa đúng định dạng
+        </p>
+      </div>
+
+      <div class="mt-3 form-group">
+        <label for="dateOfBirth" class="h6">Ngày sinh:</label>
+        <input type="date" id="dateOfBirth" class="form-control" name="dateOfBirth" formControlName="dateOfBirth">
+      </div>
+
+      <div class="mt-3 form-group">
+        <label  class="h6">Giới tính:</label>
+        <div class="d-flex">
+          <label class="d-block me-4">
+            <input type="radio"  value="true" name="gender" formControlName="gender"> Nam
+          </label>
+          <label class="d-block">
+            <input type="radio" value="false" name="gender" formControlName="gender"> Nữ
+          </label>
+        </div>
+      </div>
+
+      <div class=" mt-3 form-group">
+        <label for="name-father" class="h6" >Họ và tên cha:</label>
+        <div class="input-group">
+          <input type="text" id="name-father" class="form-control" placeholder="Nhập tên cha" name="name" formControlName="fatherName">
+        </div>
+        <p style="color: red"
+           *ngIf="studentForm.controls.fatherName.hasError('required') && studentForm.controls.fatherName.touched">*
+          Không được để trống</p>
+        <p style="color: red"
+           *ngIf="studentForm.controls.fatherName.hasError('pattern')">* Chưa đúng định dạng
+        </p>
+      </div>
+
+      <div class="mt-3 form-group">
+        <label for="phone-father" class="h6">Số điện thoại cha :</label>
+        <div class="input-group">
+          <input type="text" id="phone-father" class="form-control"  placeholder="Nhập số điện thoại cha" name="phone" formControlName="phoneNumberFather">
+        </div>
+        <p style="color: red"
+           *ngIf="studentForm.controls.phoneNumberFather.hasError('required') && studentForm.controls.phoneNumberFather.touched">*
+          Không được để trống
+        </p>
+        <p style="color: red"
+           *ngIf="studentForm.controls.phoneNumberFather.hasError('pattern')">* Chưa đúng định dạng. Ví dụ 0358787098
+        </p>
+      </div>
+
+      <div class="mt-3 form-group">
+        <label for="job-father" class="h6">Nghề nghiệp cha :</label>
+        <div class="input-group">
+          <input type="text" id="job-father" class="form-control"  placeholder="Nhập nghề nghiệp cha" name="phone" formControlName="fatherJob">
+        </div>
+        <p style="color: red"
+           *ngIf="studentForm.controls.fatherJob.hasError('required') && studentForm.controls.fatherJob.touched">*
+          Không được để trống</p>
+        <p style="color: red"
+           *ngIf="studentForm.controls.fatherJob.hasError('pattern')">* Chưa đúng định dạng
+        </p>
+      </div>
+
+      <div class=" mt-3 form-group">
+        <label for="name-mother" class="h6" >Họ và tên mẹ:</label>
+        <div class="input-group">
+          <input type="text" id="name-mother" class="form-control" placeholder="Nhập tên mẹ" name="name" formControlName="motherName">
+        </div>
+        <p style="color: red"
+           *ngIf="studentForm.controls.motherName.hasError('required') && studentForm.controls.motherName.touched">*
+          Không được để trống</p>
+        <p style="color: red"
+           *ngIf="studentForm.controls.motherName.hasError('pattern')">* Chưa đúng định dạng
+        </p>
+      </div>
+
+      <div class="mt-3 form-group">
+        <label for="phone-mother" class="h6">Số điện thoại mẹ :</label>
+        <div class="input-group">
+          <input type="text" id="phone-mother" class="form-control"  placeholder="Nhập số điện thoại mẹ" name="phone" formControlName="phoneNumberMother">
+        </div>
+        <p style="color: red"
+           *ngIf="studentForm.controls.phoneNumberMother.hasError('required') && studentForm.controls.phoneNumberMother.touched">*
+          Không được để trống
+        </p>
+        <p style="color: red"
+           *ngIf="studentForm.controls.phoneNumberMother.hasError('pattern')">* Chưa đúng định dạng. Ví dụ 0358787098
+        </p>
+      </div>
+
+      <div class="mt-3 form-group">
+        <label for="job-mother" class="h6">Nghề nghiệp mẹ :</label>
+        <div class="input-group">
+          <input type="text" id="job-mother" class="form-control"  placeholder="Nhập nghề nghiệp mẹ" name="phone" formControlName="motherJob">
+        </div>
+        <p style="color: red"
+           *ngIf="studentForm.controls.motherJob.hasError('required') && studentForm.controls.motherJob.touched">*
+          Không được để trống</p>
+        <p style="color: red"
+           *ngIf="studentForm.controls.motherJob.hasError('pattern')">* Chưa đúng định dạng
+        </p>
+      </div>
+
+      <div class="mt-3 form-group">
+        <label for="religion" class="h6">Tôn giáo:</label>
+        <div class="input-group">
+          <input type="text" id="religion" class="form-control"  placeholder="Nhập tôn giáo" name="address" formControlName="religion">
+        </div>
+        <p style="color: red"
+           *ngIf="studentForm.controls.religion.hasError('required') && studentForm.controls.religion.touched">*
+          Không được để trống</p>
+        <p style="color: red"
+           *ngIf="studentForm.controls.religion.hasError('pattern')">* Chưa đúng định dạng
+        </p>
+      </div>
+
+
+      <div class="mt-3 form-group">
+        <label for="address" class="h6">Địa chỉ:</label>
+        <div class="input-group">
+          <input type="text" id="address" class="form-control"  placeholder="Nhập địa chỉ" name="address" formControlName="address">
+        </div>
+        <p style="color: red"
+           *ngIf="studentForm.controls.address.hasError('required') && studentForm.controls.address.touched">*
+          Không được để trống</p>
+        <p style="color: red"
+           *ngIf="studentForm.controls.address.hasError('pattern')">* Chưa đúng định dạng
+        </p>
+        <p style="color: red"
+           *ngIf="studentForm.controls.address.hasError('maxlength')">* Nhập tối đa 255 ký tự
+        </p>
+      </div>
+
+      <div class="mt-3 form-group">
+        <label class="h6">Clazz:</label>
+        <div class="input-group" formGroupName="clazzDto" >
+          <input type="hidden" value="{{clazz.clazzId}}" formControlName="clazzId">
+          <input class="form-control" type="text" value="{{clazz.clazzName}}" readonly formControlName="clazzName">
+        </div>
+      </div>
+
+
+      <div class="d-flex justify-content-center" style="margin-bottom: 20px ; margin-top: 20px">
+        <button type="submit" class="btn btn-primary mt-2 mb-2">Thêm mới học sinh</button>
+        <button routerLink="/student" type="button" style="margin-left: 20px; margin-top: 8px; height: 37px" class="btn btn-warning" >
+          <p>Trở về </p>
+        </button>
+
+      </div>
+
+    </form>
+  </div>
+</div>
+

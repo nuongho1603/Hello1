@@ -1,0 +1,154 @@
+<div class="p-3 " style="min-height: 58vh; height: 90vh; background-color: #ECECEC; margin-top: 50px">
+  <h2 class="text-center fw-bold text-dark my-3">DANH SÁCH HỌC SINH </h2>
+
+  <div style="padding-top: 10px" class="row">
+    <div class="row">
+      <div class="col-2"></div>
+      <div class="col-8">
+        <form class="pb-3" *ngIf="rfSearch" [formGroup]="rfSearch" (ngSubmit)="searchStudent(0)">
+          <fieldset>
+            <div class="row mt-3">
+              <div class="col-1"></div>
+              <div class="col-lg-4 col-sm-12">
+                <strong>Nhập tên học sinh: </strong>
+                <input formControlName="nameStudent" type="text" class="form-control rounded-0 mt-2" id="title"
+                       placeholder="Nhập tên học sinh cần tìm...">
+              </div>
+              <div class="col-4">
+                <div class="row">
+                  <div class="col-lg-6 col-sm-12">
+                    <strong>Trạng thái: </strong>
+                    <select formControlName="studyStatus" class="form-control rounded-0 mt-2">
+                      <option value="false">Còn đi học</option>
+                      <option value="true">Đã nghỉ học</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-2">
+                <br>
+                <div class="row">
+                  <div class="col-lg-12 col-sm-12">
+                    <div class="input-group">
+                      <button class="btn btn-outline-primary mt-2" [disabled]="rfSearch.invalid">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-1"></div>
+            </div>
+          </fieldset>
+        </form></div>
+      <div class="col-2"></div>
+    </div>
+
+
+    <div class="row" style="padding-top: 20px" >
+      <div class="col-2"></div>
+      <div class="col-8">
+        <div *ngIf="pageStudent; else elseBlockTable">
+
+          <table style="box-shadow: 0 0 20px 0 #253365;" class="table table-bordered table-hover">
+            <thead>
+            <tr class="table-primary">
+              <th>STT</th>
+              <th>Họ và tên</th>
+              <th>Ngày sinh</th>
+              <th>Lớp</th>
+              <th>Học Lực</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of pageStudent?.content; let i = index">
+              <td>{{i + 1 + pageStudent.number * pageStudent.size}}</td>
+              <td>{{item.nameStudent}}</td>
+              <td>{{item.dateOfBirthStudent| date: 'dd/MM/yyyy'}}</td>
+              <td>{{item.nameClazz}}</td>
+
+              <td *ngIf="item.studentPoint<5">Yeu</td>
+
+              <td *ngIf="item.studentPoint>=5 && item.studentPoint<6.5">Trung binh</td>
+              <td *ngIf="item.studentPoint>=6.5 && item.studentPoint<8.5">Kha</td>
+              <td *ngIf="item.studentPoint>=8.5 && item.studentPoint<=10">Gioi</td>
+
+              <!--            <td>{{item.studentPoint}}</td>-->
+            </tr>
+            </tbody>
+          </table>
+
+        </div>
+        <ng-template #elseBlockTable>
+          <h4 style="text-align: center;color: red">Không có dữ liệu cần tìm</h4>
+        </ng-template>
+
+      </div>
+      <div class="col-2"></div>
+    </div>
+  </div>
+
+  <div style="position:absolute; left: 48.6%">
+    <div *ngIf="pageStudent; else elseBlockPagination">
+      <div *ngIf="pageStudent" id="last-row">
+        <div>
+          <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              <li class="page-item" [ngClass]="pageStudent.first ? 'disabled': ''">
+                <a role="button" class="page-link" (click)="gotoPage(0)">Trang đầu</a>
+              </li>
+              <li class="page-item" [ngClass]="pageStudent.first ? 'disabled': ''">
+                <a role="button" class="page-link" (click)="gotoPage(pageStudent.number - 1)"><</a>
+              </li>
+              <li class="page-item" *ngIf="pageStudent.number - 3 > 0">
+                <a role="button" class="page-link"
+                   (click)="gotoPage(pageStudent.number - 4)">{{pageStudent.number - 3}}</a>
+              </li>
+              <li class="page-item" *ngIf="pageStudent.number - 2 > 0">
+                <a role="button" class="page-link"
+                   (click)="gotoPage(pageStudent.number - 3)">{{pageStudent.number - 2}}</a>
+              </li>
+              <li class="page-item" *ngIf="pageStudent.number - 1 > 0">
+                <a role="button" class="page-link"
+                   (click)="gotoPage(pageStudent.number - 2)">{{pageStudent.number - 1}}</a>
+              </li>
+              <li class="page-item" *ngIf="pageStudent.number > 0">
+                <a role="button" class="page-link"
+                   (click)="gotoPage(pageStudent.number - 1)">{{pageStudent.number}}</a>
+              </li>
+              <li class="page-item active"><a class="page-link">{{pageStudent.number + 1}}</a></li>
+              <li class="page-item" *ngIf="pageStudent.number + 2 <= pageStudent.totalPages">
+                <a role="button" class="page-link"
+                   (click)="gotoPage(pageStudent.number + 1)">{{pageStudent.number + 2}}</a>
+              </li>
+              <li class="page-item" *ngIf="pageStudent.number + 3 <= pageStudent.totalPages">
+                <a role="button" class="page-link"
+                   (click)="gotoPage(pageStudent.number + 2)">{{pageStudent.number + 3}}</a>
+              </li>
+              <li class="page-item" *ngIf="pageStudent.number + 4 <= pageStudent.totalPages">
+                <a role="button" class="page-link"
+                   (click)="gotoPage(pageStudent.number + 3)">{{pageStudent.number + 4}}</a>
+              </li>
+              <li class="page-item" *ngIf="pageStudent.number + 5 <= pageStudent.totalPages">
+                <a role="button" class="page-link"
+                   (click)="gotoPage(pageStudent.number + 4)">{{pageStudent.number + 5}}</a>
+              </li>
+              <li class="page-item" [ngClass]="pageStudent.last ? 'disabled': ''">
+                <a role="button" class="page-link"
+                   (click)="gotoPage(pageStudent.number + 1)">></a>
+              </li>
+              <li class="page-item" [ngClass]="pageStudent.last ? 'disabled': ''">
+                <a role="button" class="page-link"
+                   (click)="gotoPage(pageStudent.totalPages - 1)">
+                  Trang cuối
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #elseBlockPagination></ng-template>
+  </div>
+</div>

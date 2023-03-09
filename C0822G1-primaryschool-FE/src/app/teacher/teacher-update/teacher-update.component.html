@@ -1,0 +1,134 @@
+<div class="container" >
+  <div class="row d-flex justify-content-center align-items-center h-100">
+    <div class="col-xl-9">
+      <div class="card mt-5" style="border-radius: 15px;">
+        <div class="card-body " style="box-shadow: 0 0 20px 0 #253365;border-radius: 15px">
+          <form [formGroup]="infoTeacherForm" (ngSubmit)="editInfoTeacher()">
+            <h1 style="text-align: center; margin-top: 30px; margin-bottom: 50px">SỬA THÔNG TIN CÁ NHÂN</h1>
+            <input formControlName="teacherId" type="hidden">
+            <div class="row d-flex">
+              <div class="row align-items-center py-3 col-6">
+                <div class="col-4">
+                  <label style="font-weight: bold">Họ và tên:</label>
+                </div>
+                <div class="col-8">
+                  <input class="form-control" type="text" formControlName="teacherName" readonly>
+                </div>
+              </div>
+
+              <div class="row align-items-center py-3 col-6">
+                <div class="col-4">
+                  <label style="font-weight: bold" class="mb-0">CCCD:</label>
+                </div>
+                <div class="col-8">
+                  <input class="form-control" formControlName="idCard" type="text" readonly>
+                </div>
+              </div>
+            </div>
+
+            <div class="row d-flex">
+              <div class="row align-items-center py-3 col-6">
+                <div class="col-4">
+                  <label style="font-weight: bold">Ngày sinh:</label>
+                </div>
+                <div class="col-8">
+                  <input class="form-control" formControlName="dateOfBirth" type="date" readonly>
+                </div>
+              </div>
+
+              <div class="row align-items-center py-3 col-6">
+                <div class="col-4">
+                  <label style="font-weight: bold" class="mb-0">Giới tính:</label>
+                </div>
+                <div class="col-8">
+                  <label class="me-3"><input class="form-check-input" formControlName="gender" type="radio" value="true" readonly> Nam</label>
+                  <label><input class="form-check-input" formControlName="gender" type="radio" value="false" readonly> Nữ</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row ">
+              <div class="row align-items-center py-3 col-6">
+                <div class="col-4">
+                  <label style="font-weight: bold">Trình độ:</label>
+                </div>
+                <div class="col-8">
+                  <input class="form-control" formControlName="degreeName" type="text" readonly>
+                </div>
+              </div>
+
+              <div class="row align-items-center py-3 col-6">
+                <div class="col-4">
+                  <label style="font-weight: bold" class="mb-0">Chức vụ:</label>
+                </div>
+                <div class="col-8">
+                  <input class="form-control" formControlName="teacherType" type="text" readonly>
+                </div>
+              </div>
+            </div>
+
+            <div class="row d-flex mb-3">
+              <div class="row align-items-center py-3 col-6">
+                <div class="col-4">
+                  <label style="font-weight: bold">Email: <b style="color: red">*</b></label>
+                </div>
+                <div class="col-8">
+                  <input class="form-control" formControlName="email" type="text">
+                  <div style="position: absolute">
+                  <p *ngIf="infoTeacherForm.controls.email.hasError('required')" style="color: red">Email không được để
+                    trống.</p>
+                  <p *ngIf="infoTeacherForm.controls.email.hasError('pattern')" style="color: red">Email không đúng định
+                    dạng.</p>
+                  <p style="color: red" *ngIf="messageEmail">{{messageEmail}}</p>
+                  <p style="color: red" *ngIf="messageEmailPattern">{{messageEmailPattern}}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="row align-items-center py-3 col-6">
+                <div class="col-4">
+                  <label style="font-weight: bold" class="mb-0">SĐT: <b
+                    style="color: red">*</b></label>
+                </div>
+                <div class="col-8">
+                  <input class="form-control" formControlName="phoneNumber" type="text">
+                  <div style="position: absolute">
+                  <p style="color:powderblue;font-family: Arial"></p>
+                  <p *ngIf="infoTeacherForm.controls.phoneNumber.hasError('required')" style="color: red">Số điện thoại không
+                    được để trống.</p>
+                  <p *ngIf="infoTeacherForm.controls.phoneNumber.hasError('pattern')" style="color: red">Số điện thoại không
+                    đúng định dạng.</p>
+                  <p style="color: red" *ngIf="messagePhoneNumber">{{messagePhoneNumber}}</p>
+                  <p style="color: red" *ngIf="messagePhoneNumberPattern">{{messagePhoneNumberPattern}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row align-items-center py-3 mb-3">
+              <div class="col-2">
+                <label style="font-weight: bold" class="mb-0">Địa chỉ: <b
+                  style="color: red">*</b></label>
+              </div>
+              <div class="col-9">
+                <input class="form-control" type="text" formControlName="address" style="margin-left: -10px; margin-right: -10px">
+                <div style="position: absolute">
+                <p *ngIf="infoTeacherForm.controls.address.hasError('required')" style="color: red">Địa chỉ nhà không được
+                  để trống.</p>
+                <p style="color: red" *ngIf="messageAddress">{{messageAddress}}</p>
+                </div>
+              </div>
+            </div>
+
+            <div align="center" class="px-5 py-4">
+              <button type="submit" class="btn btn-warning">Quay lại</button>
+              <button style="margin-left: 10px" type="submit" class="btn btn-primary"
+                      data-bs-toggle="modal" data-bs-target="#exampleModal" routerLink="/timetable/timetable-teacher">
+                Lưu thông tin
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

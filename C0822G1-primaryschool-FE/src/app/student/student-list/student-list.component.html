@@ -1,0 +1,261 @@
+<div style="text-align: center; background-color: #ECECEC; height: 150vh; margin-top: 50px">
+  <div class="container">
+    <div class="row" style="padding-top: 50px">
+      <div class="col-12">
+        <div style="height:100px;background-color: #bfd1ec;padding-left: 80px;padding-top: 30px">
+          <div class="row">
+
+            <div class="col-3">
+              <div class="row">
+                <div class="col-6">
+                  <label for="year"><h5 style="margin-top: 2px;float: right">Chọn năm:</h5>
+                  </label>
+                </div>
+                <div class="col-6">
+                  <select id="year" class="form-select" #year (change)="chooseClass(year.value,block.value)">
+                    <option value=""></option>
+                    <option *ngFor="let y of years" [ngValue]="y.year">{{y.year}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-3">
+              <div class="row">
+                <div class="col-6">
+                  <label for="block">
+                    <h5 style="margin-top: 2px">Chọn khối:</h5>
+                  </label>
+                </div>
+
+                <div class="col-6">
+                  <select id="block" class="form-select" #block (change)="chooseClass(year.value,block.value)">
+                    <option></option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-3">
+              <div class="row">
+                <div class="col-6">
+                  <label for="clazz">
+                    <h5 style="margin-top: 2px">Chọn lớp:</h5>
+                  </label>
+                </div>
+                <div class="col-6">
+                  <select id="clazz" class="form-select" #classId>
+                    <option value=""></option>
+                    <option *ngFor="let c of classNames" [value]="c.id">{{c.name}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="row">
+                <button class="btn btn-outline-primary" style="margin-left: 50px; width: 20%"
+                        (click)="searchStudent(year.value,classId.value,0)"><i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="studentList.length!=0; else elseBlock" >
+      <div class="row">
+        <h1 style=" margin-bottom: 10px;margin-top: 20px">LỚP {{classTeacher.name}}({{classTeacher.schoolYear}})</h1>
+      </div>
+
+      <!--    button lên lớp và sửa GVCN-->
+
+      <div class="row ">
+        <div class="col-8">
+          <h5 style="margin-bottom: 10px;line-height:35px;float: right">GVCN: {{classTeacher.teacherName}}</h5>
+        </div>
+        <div class="col-4" *ngIf="yearClazz==currentYear?'hidden':''">
+          <button class="btn btn-outline-warning" data-bs-target="#changeTeacher" data-bs-toggle="modal"
+                  style="float:left;" (click)="editNameTeacher()"><span><img src="https://img.icons8.com/color/100/null/pencil-tip.png"
+                                                                                        style="width: 20px"/></span>
+          </button>
+        </div>
+      </div>
+
+      <!--    Bảng danh sách-->
+
+      <div class="row" >
+        <table class="table table-bordered table-hover" style="background-color: white;
+              box-shadow: 0 0 20px 0 #253365;">
+          <thead class="table-primary">
+          <tr>
+            <th scope="col">STT</th>
+            <th scope="col">Họ và tên</th>
+            <th scope="col">Ngày sinh</th>
+            <th scope="col">Quê quán</th>
+            <th scope="col">Sửa</th>
+            <th scope="col">Xóa</th>
+            <th scope="col">Chi tiết</th>
+          </tr>
+          </thead>
+          <tbody>
+
+          <tr *ngFor="let s of studentList,index as i ">
+            <th scope="row">{{i + 1}}</th>
+            <td style="text-align: left">{{s.name}}</td>
+            <td>{{s.dateOfBirth | date:"dd/MM/yyyy"}}</td>
+            <td style="text-align: left">{{s.address}}</td>
+            <td>
+              <a class="btn btn-outline-warning" style="text-align: center; "
+                 [routerLink]="['/student/update',s.id,this.yearClazz,this.clazzId,this.page]">
+                                <span><img src="https://img.icons8.com/color/100/null/pencil-tip.png"
+                                           style="width: 20px"/></span>
+              </a>
+            </td>
+
+            <td>
+              <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                      data-bs-target="#deleteStudent" style="padding: 3px 6px" (click)="student=s">
+                <img src="https://img.icons8.com/clouds/100/null/trash.png"
+                     style="width: 30px"/>
+              </button>
+            </td>
+
+            <td>
+              <a class="btn btn-outline-primary" style="text-align: center; "
+                 [routerLink]="['/student/detail',s.id,this.yearClazz,this.clazzId,this.page]">
+                <i class="fa-solid fa-circle-info"></i>
+              </a>
+            </td>
+
+          </tr>
+
+          </tbody>
+        </table>
+        <!--        Phân trang-->
+        <div style="position: absolute; top: 1560px; left: 30%">
+          <div >
+            <div *ngIf="studentPage" class="d-flex justify-content-center" id="last-row">
+
+              <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                  <li class="page-item" [ngClass]="studentPage.first ? 'disabled': ''">
+                    <a role="button" class="page-link" (click)="changePage(0)">Trang đầu</a>
+                  </li>
+                  <li class="page-item" [ngClass]="studentPage.first ? 'disabled': ''">
+                    <a role="button" class="page-link" (click)="changePage(studentPage.number - 1)"><</a>
+                  </li>
+                  <li class="page-item" *ngIf="studentPage.number - 3 > 0">
+                    <a role="button" class="page-link"
+                       (click)="changePage(studentPage.number - 4)">{{studentPage.number - 3}}</a>
+                  </li>
+                  <li class="page-item" *ngIf="studentPage.number - 2 > 0">
+                    <a role="button" class="page-link"
+                       (click)="changePage(studentPage.number - 3)">{{studentPage.number - 2}}</a>
+                  </li>
+                  <li class="page-item" *ngIf="studentPage.number - 1 > 0">
+                    <a role="button" class="page-link"
+                       (click)="changePage(studentPage.number - 2)">{{studentPage.number - 1}}</a>
+                  </li>
+                  <li class="page-item" *ngIf="studentPage.number > 0">
+                    <a role="button" class="page-link"
+                       (click)="changePage(studentPage.number - 1)">{{studentPage.number}}</a>
+                  </li>
+                  <li class="page-item active"><a class="page-link">{{studentPage.number + 1}}</a></li>
+                  <li class="page-item" *ngIf="studentPage.number + 2 <= studentPage.totalPages">
+                    <a role="button" class="page-link"
+                       (click)="changePage(studentPage.number + 1)">{{studentPage.number + 2}}</a>
+                  </li>
+                  <li class="page-item" *ngIf="studentPage.number + 3 <= studentPage.totalPages">
+                    <a role="button" class="page-link"
+                       (click)="changePage(studentPage.number + 2)">{{studentPage.number + 3}}</a>
+                  </li>
+                  <li class="page-item" *ngIf="studentPage.number + 4 <= studentPage.totalPages">
+                    <a role="button" class="page-link"
+                       (click)="changePage(studentPage.number + 3)">{{studentPage.number + 4}}</a>
+                  </li>
+                  <li class="page-item" *ngIf="studentPage.number + 5 <= studentPage.totalPages">
+                    <a role="button" class="page-link"
+                       (click)="changePage(studentPage.number + 4)">{{studentPage.number + 5}}</a>
+                  </li>
+                  <li class="page-item" [ngClass]="studentPage.last ? 'disabled': ''">
+                    <a role="button" class="page-link"
+                       (click)="changePage(studentPage.number + 1)">></a>
+                  </li>
+                  <li class="page-item" [ngClass]="studentPage.last ? 'disabled': ''">
+                    <a role="button" class="page-link"
+                       (click)="changePage(studentPage.totalPages - 1)">
+                      Trang cuối
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+    <ng-template #elseBlock>
+      <h3 style="color:red;margin-top: 50px">
+        Danh sách rỗng,vui lòng nhập năm,khối và lớp cần hiển thị.</h3>
+    </ng-template>
+
+  </div>
+</div>
+
+<!--        Modal Xóa-->
+
+<div class="modal fade" id="deleteStudent" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="justify-content: center">
+        <h5 class="modal-title" id="exampleModalLabel">Xóa học sinh</h5>
+      </div>
+      <div class="modal-body">
+        <p>Bạn có muốn xóa học sinh có tên:
+          <span style="color: red;font-weight: bold">{{student.name}}?</span>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="deleteStudent(student.id)">Có
+        </button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Không</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--        Modal đổi GVCN-->
+<div class="modal fade" id="changeTeacher" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="justify-content: center">
+        <h5 class="modal-title">Thay đổi giáo viên chủ nhiệm</h5>
+      </div>
+      <div class="modal-body">
+        Chọn giáo viên:
+        <input list="brow" #teacherName style="width: 70%;border-color: #bfd1ec" placeholder="  --Mời nhập tên giáo viên--">
+        <datalist id="brow" style="border-color: #bfd1ec">
+          <option *ngFor="let t of teachers" [value]="t.name+',CCCD:'+t.idCard"></option>
+        </datalist>
+        <div *ngIf="teachers.length==0" style="margin-top: 15px"><p style="color: red;text-align: center">Hiện tại không có giáo
+          viên để thay đổi</p></div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Quay lại</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                (click)="changeTeacher(teacherName.value)">Thay đổi
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

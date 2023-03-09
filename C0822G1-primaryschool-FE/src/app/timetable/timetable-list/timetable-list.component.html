@@ -1,0 +1,121 @@
+<body style="background-color: #ECECEC; height: 100vh; margin-top: 50px">
+  <div class="row">
+    <h1 class="title" style="font-family: system-ui; color: #07425c">QUẢN LÝ THỜI KHOÁ BIỂU</h1>
+  </div>
+
+  <div class="row" style="margin-bottom: 30px">
+    <div class="col-2"></div>
+    <div class="col-8">
+      <div class="row">
+        <div class="col-3">
+          <button class="btn btn-primary" *ngIf="timetableArray.length!=0" (click)="exportPdf()">Xuất file PDF</button>
+        </div>
+        <div class="col-3">
+          <label style="margin-left: 50px">
+            <select id="block" class="form-select" #block (change)="chooseClass(block.value)">
+              <option>Chọn khối</option>
+              <option value="1">Khối 1</option>
+              <option value="2">Khối 2</option>
+              <option value="3">Khối 3</option>
+              <option value="4">Khối 4</option>
+              <option value="5">Khối 5</option>
+            </select>
+          </label>
+        </div>
+        <div class="col-3">
+          <label style="margin-left: 70px">
+            <select id="clazz" class="form-select" #clazzId>
+              <option value="">Chọn lớp</option>
+              <option *ngFor="let c of clazzList" [value]="c.clazzId">{{c.clazzName}}</option>
+            </select>
+          </label>
+        </div>
+        <div class="col-3">
+          <button class="btn btn-outline-primary" style="margin-left: 130px"
+                  (click)="searchTimetable(clazzId.value)">Xem
+          </button>
+        </div>
+      </div>
+      <div class="col-2"></div>
+    </div>
+
+
+    <div class="row" style="margin-top: 25px">
+      <div class="col-1"></div>
+      <div class="col-10">
+        <div class="row">
+          <div style="width: auto" class="container">
+            <form [formGroup]="timetableForm" (ngSubmit)="update()">
+              <table style="box-shadow: 0 0 20px 0 #253365;" class="table table-hover table-primary" *ngIf="timetableArray.length!=0; else displayTimetable">
+                <thead>
+                <tr style="float: left">
+                </tr>
+                </thead>
+                <tbody formArrayName="timetableArray">
+                <div *ngFor="let row of [0,1,2,3,4]" style="float: left">
+                  <tr style="text-align: center" class="align-middle">
+                    <th *ngIf="row==0">Tiết</th>
+                    <td style="height: 45px; font-weight: bold">Thứ {{row + 2}}</td>
+                  </tr>
+                  <tr *ngFor="let col of [0,1,2,3,4]">
+                    <td *ngIf="row==0&&(col==0||1||2||3||4)"
+                        style="float: bottom;width: 80px;text-align: center">{{col + 1}}</td>
+                    <td *ngIf="row*5 + col < timetableArray.length">
+                      <div [formGroupName]="row*5 + col">
+                        <input hidden type="text" formControlName="timetableId">
+                        <select class="form-select" formControlName="subjectId" style="height: 50px">
+                          <option *ngFor="let s of subjects" [disabled]="role!='ROLE_ADMIN'" [value]="s.subjectId">{{s.subjectName}}</option>
+                        </select>
+                      </div>
+                    </td>
+                  </tr>
+                </div>
+                </tbody>
+              </table>
+
+              <ng-template #displayTimetable>
+                <img src="../../../assets/img/anh TKB sáng.png" width="650px"/>
+              </ng-template>
+              <button *ngIf="timetableArray.length!=0 && role == 'ROLE_ADMIN'" type="button" class="btn btn-outline-success update"
+                      data-bs-toggle="modal"
+                      data-bs-target="#exampleModal" (click)="showClazz()">
+                Áp dụng
+              </button>
+
+              <!-- Modal -->
+              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                   aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Yêu cầu cập nhật thời khoá biểu.</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <span>Bạn chắc chắn muốn cập nhật thời khoá biểu lớp </span><span
+                      style="color: red">{{clazzSearchId.clazzName}} </span><span>.?</span>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-outline-secondary-secondary" data-bs-dismiss="modal">Huỷ
+                      </button>
+                      <button type="submit" class="btn btn-outline-primary" data-bs-dismiss="modal">Lưu</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-1"></div>
+    </div>
+    <div class="row">
+      <div class="col-lg-1"></div>
+      <div class="col-lg-10">
+      </div>
+      <div class="col-lg-1">
+      </div>
+    </div>
+  </div>
+</body>

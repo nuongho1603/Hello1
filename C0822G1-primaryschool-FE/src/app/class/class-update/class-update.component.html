@@ -1,0 +1,89 @@
+<div>
+  <div *ngIf="clazzStudentDtoForm!=undefined">
+    <form [formGroup]="clazzStudentDtoForm" (ngSubmit)="update(id)">
+      <div class="row" style="margin: 0;padding: 0; ">
+        <div class=" d-flex justify-content-center align-items-center mt-2 mb-2 ">
+          <div class="boxed shadow"
+               style="align-content: center; margin-bottom: 18px;margin-top: 100px;height: 100%; background-color: white">
+            <div class="mb-2 row">
+              <div class="d-flex align-items-center mb-2">
+                <a class="btn text-center text-primary"><i class="fa-solid fa-arrow-left" routerLink="/class"></i></a>
+              </div>
+              <div class="mb-2 row">
+                <fieldset>
+                  <legend>
+                    <div class="mt-0 text-center fw-bold">
+                      <h1>CẬP NHẬT LỚP</h1>
+                    </div>
+                    <br>
+                  </legend>
+                </fieldset>
+              </div>
+            </div>
+            <div class="mb-2 row">
+              <div style="display: flex">
+                <div class="col-9" style="display: block">
+                  <div class="mb-3" hidden>
+                    <label class="form-label" >Id</label>
+                    <input type="text" class="form-control" formControlName="clazzId" >
+                  </div>
+                  <div class="mb-3" hidden>
+                    <label class="form-label" >Block</label>
+                    <select class="form-control form-control-lg" formControlName="blockName">
+                      <option *ngFor="let item of classStudentDtoList" [ngValue]="item.blockName">{{item.blockName}}</option>
+                    </select>
+                  </div>
+                  <div style="margin-bottom: 20px" class="mb-3" >
+                    <span>Tên lớp :</span> <span style="width: 20px; display: inline-flex  ">
+                  <input style="width: 500px;  margin-left: 90px; background: #CFE2FF; border: 1px solid #212529"
+                         type="text" class="form-control" formControlName="clazzName" readonly></span>
+                  </div>
+                  <div style="margin-bottom: 20px">
+                    <span>Giáo viên chủ nhiệm:</span>
+                    <span style="width: 20px; display: inline-flex  ">
+                      <select class="form-select" style="width: 500px ;  margin-left: 3px; background: #CFE2FF;
+                      border: 1px solid #212529" formControlName="teacherName" >
+                        <option *ngFor="let item of classStudentDtoList" [ngValue]="item.teacherName">{{item.teacherName}} </option>
+                      </select>
+                    </span>
+                  </div>
+                  <div style="margin-bottom: 20px" >
+                    <span>Hiện tại có {{getStudentClazzDtoCount()}} học sinh trong lớp </span>
+                  </div>
+                </div>
+              </div>
+              <div>
+
+                <table class="table table-hover table-bordered table-striped">
+                  <thead class="table-primary">
+                  <tr class="align-baseline">
+                    <th scope="col">STT</th>
+                    <th scope="col">Tên</th>
+                    <th scope="col">Ngày sinh</th>
+                    <th scope="col">Giới tính</th>
+                    <th scope="col">Quê quán</th>
+                    <th scope="col">Lớp</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let student of studentClazzDtoList   index as item">
+                    <td>{{item+1}}</td>
+                    <td>{{student.studentName}}</td>
+                    <td>{{student.dateOfBirth | date : 'dd/MM/yyyy'}}</td>
+                    <td>{{student.gender? 'Nam' : 'Nữ'}}</td>
+                    <td>{{student.address}}</td>
+                    <td>{{student.clazzName}}</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="d-flex justify-content-center" style="margin-bottom: 15px ; margin-top: 30px">
+              <button type="submit" class="btn btn-primary">Xác nhận sửa lớp</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
